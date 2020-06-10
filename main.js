@@ -109,5 +109,3 @@ $(document).ready(function(){
 
 
 });// fine document ready
-
-//        var array_generi =[];
