@@ -20,7 +20,6 @@ $(document).ready(function(){
             'dicembre':0
         };
 
-
         for (var i = 0; i < data.length; i++) {
             // mi salvo le informazioni dei clienti
             var informazioni_clienti = data[i];
@@ -36,16 +35,15 @@ $(document).ready(function(){
            var mesi_clienti = moment(date, "DD/MM/YYYY").format("MMMM");
            // console.log(data_clienti);
            vendite_mesi[mesi_clienti] += capitale_clienti;
-
-        }; // fine for
+        } // fine for
         console.log(vendite_mesi);
-        // estraggo le chiavi dell'oggetto continenti
-        // queste corrispondono ai nomi dei continenti
+        // estraggo i mesi dell'oggetto vendite mesi
+        // queste corrispondono ai nomi dei mesi
         var mesi = Object.keys(vendite_mesi);
         console.log(mesi);
 
-        // estraggo i valori dell'oggetto continenti
-        // questi corrispondono al totale dei dischi venduti per continente
+        // estraggo il capitale dell'oggetto vendite_mesi
+        // questi corrispondono al totale del capitale di ogni mese
         var capitale = Object.values(vendite_mesi);
         // console.log(capitale);
         var ctx = $('#chart-uno')[0].getContext('2d');
@@ -100,12 +98,7 @@ $(document).ready(function(){
                 }
             }
         });
-
      } // fine success
-
-
     });// fine ajax
-
-
 
 });// fine document ready
