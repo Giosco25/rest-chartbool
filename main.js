@@ -109,7 +109,7 @@ function disegna_vendite_venditori(dati_vendite_venditori){
     // questi corrispondono al totale del capitale di ogni mese
     var dati_venditori = Object.values(dati_vendite_venditori);
     // console.log(capitale);
-    var ctx = $('#grafico_vendite')[0].getContext('2d');
+    var ctx = $('#chart-due')[0].getContext('2d');
 
     var myChart = new Chart(ctx, {
         type: 'bar',
