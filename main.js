@@ -1,7 +1,8 @@
 $(document).ready(function(){
+    var url_ajax = 'http://157.230.17.132:4028/sales'
     // chiamata API per recuperare i dati
     $.ajax({
-        'url': 'http://157.230.17.132:4028/sales',
+        'url': url_ajax ,
         'method': 'GET',
         'success': function(vendite_mensili){
             preparazione_dati_vendite(vendite_mensili)
@@ -146,8 +147,31 @@ $(document).ready(function(){
                     borderWidth: 1
                 }] // fine datasets
             }, // fine data
+            options: {
+                title: {
+                    display: true,
+                    text: 'Vendite per venditori',
+                    fontSize: 50
+                } // fine title
+             } // fine options
         }); // fine chart
-    };//** funzione disegna vendite venditori **//
-
+    };//** fine funzione disegna vendite venditori **//
     ///****** MILESTONE 2 ******///
+    $('.btn').on( "click" , function(){
+        $.ajax({
+            'url': url_ajax ,
+            'method': 'POST',
+            'data':{
+                'salesman':nomi_clienti,
+                'amount': capitale_clienti,
+                'date': date
+            }
+            'success': function(data){
+                console.log(data);
+            } // fine success
+        });// fine ajax
+
+
+
+    }));//** fine on click
 });// fine document ready
