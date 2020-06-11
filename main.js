@@ -113,29 +113,35 @@ function disegna_vendite_venditori(dati_vendite_venditori){
 
     var myChart = new Chart(ctx, {
         type: 'bar',
-        data: {
-            labels: nomi_venditori,
-            datasets: [{
-                label: 'Period 1',
-                data: dati_venditori,
-                pointBackgroundColor:'rgba(255, 35, 12, 1)',
-                pointBorderColor: 'rgba(255, 159, 64, 1)',
-                borderColor:'rgba(255, 159, 64, 1)',
-                borderWidth:3,
-                fill: false,
-            }]
-        },
-        options: {
-            legend:{
-                position: 'right',
-                fontColor: '#333'
-            },
-            title: {
-                display: true,
-                text: 'Fatturato Mensile',
-                fontSize: 50
-             }
-         }
-    });// fine my chart
+   data: {
+       labels: nomi_venditori,
+       datasets: [{
+           label: '# of Votes',
+           data: dati_venditori,
+           backgroundColor: [
+               'rgba(255, 99, 132, 0.2)',
+               'rgba(54, 162, 235, 0.2)',
+               'rgba(255, 206, 86, 0.2)',
+               'rgba(75, 192, 192, 0.2)',
+           ],
+           borderColor: [
+               'rgba(255, 99, 132, 1)',
+               'rgba(54, 162, 235, 1)',
+               'rgba(255, 206, 86, 1)',
+               'rgba(75, 192, 192, 1)',
+           ],
+           borderWidth: 1
+       }]
+   },
+   options: {
+       scales: {
+           yAxes: [{
+               ticks: {
+                   beginAtZero: true
+               }
+           }]
+       }
+   }
+   }); // fine chart
  };//** funzione disegna vendite venditori **//
 });// fine document ready
