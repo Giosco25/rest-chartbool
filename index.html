@@ -9,36 +9,37 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <div class="chart-container">
-            <canvas id="grafico_vendite"></canvas>
-        </div>
-        <div class="chart-container">
-            <canvas id="grafico_venditori"></canvas>
-        </div>
         <select class="venditori" name="">
+            <option value=""> scegli venditore</option>
             <option value="Marco">Marco</option>
             <option value="Giuseppe">Giuseppe</option>
             <option value="Riccardo">Riccardo</option>
             <option value="Roberto">Roberto</option>
         </select>
         <select class="mesi" name="">
-            <option value="gennaio">gennaio</option>
-            <option value="febbraio">febbraio</option>
-            <option value="marzo">marzo</option>
-            <option value="aprile">aprile</option>
-            <option value="maggio">maggio</option>
-            <option value="giugno">giugno</option>
-            <option value="luglio">luglio</option>
-            <option value="agosto">agosto</option>
-            <option value="settembre">settembre</option>
-            <option value="ottobre">ottobre</option>
-            <option value="novembre">novembre</option>
-            <option value="dicembre">dicembre</option>
+            <option value="01">gennaio</option>
+            <option value="02">febbraio</option>
+            <option value="03">marzo</option>
+            <option value="04">aprile</option>
+            <option value="05">maggio</option>
+            <option value="06">giugno</option>
+            <option value="07">luglio</option>
+            <option value="08">agosto</option>
+            <option value="09">settembre</option>
+            <option value="10">ottobre</option>
+            <option value="11">novembre</option>
+            <option value="12">dicembre</option>
         </select>
-        <form>
-            <input class="input-testo" type="text">
-        </form>
+            <input class="importo-vendita" type="number">
         <button class="btn">Aggiungi</button>
+
+        <div class="chart-container-vendite">
+            <canvas id="grafico_vendite"></canvas>
+        </div>
+        <div class="chart-container-mesi">
+            <canvas id="grafico_venditori"></canvas>
+        </div>
+
         <script src="main.js" charset="utf-8"></script>
     </body>
 </html>

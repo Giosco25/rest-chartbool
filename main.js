@@ -1,14 +1,50 @@
 $(document).ready(function(){
-    var url_ajax = 'http://157.230.17.132:4028/sales'
-    // chiamata API per recuperare i dati
-    $.ajax({
-        'url': url_ajax ,
-        'method': 'GET',
-        'success': function(vendite_mensili){
-            preparazione_dati_vendite(vendite_mensili)
-            vendite_venditori(vendite_mensili);
-        } // fine success
-    });// fine ajax
+    var url_ajax = 'http://157.230.17.132:4028/sales';
+    genera_grafici();
+    // click
+    $('.btn').click(function(){
+        var venditore_scelto = $('.venditori').val();
+        var scelta_mese = $('.mesi').val();
+        var importo = $('.importo-vendita').val();
+
+        var data_vendita = '01/' + scelta_mese + '/2017';
+
+        $.ajax({
+            'url': url_ajax ,
+            'method': 'POST',
+            'data':{
+                salesman: venditore_scelto,
+                date: data_vendita,
+                amount: importo
+            },
+            'success': function(vendite_mensili){
+                genera_grafici();
+            },// fine success
+            'error': function(){
+                console.log('errore');
+            }// fine error
+        });// fine ajax
+    }); // fine click
+
+    function genera_grafici(){
+        $.ajax({
+            'url': url_ajax ,
+            'method': 'GET',
+            'success': function(vendite_mensili){
+                preparazione_dati_vendite(vendite_mensili)
+                vendite_venditori(vendite_mensili);
+            } // fine success
+        });// fine ajax
+    }
+    function aggiorna_grafici(){
+        $.ajax({
+            'url': url_ajax ,
+            'method': 'GET',
+            'success': function(vendite_mensili){
+                console.log(grafici.graficoVendite);
+            } // fine success
+        });// fine ajax
+    }
 
     function preparazione_dati_vendite(dati){
         // creo un array con tutti i mesi
@@ -31,7 +67,7 @@ $(document).ready(function(){
             // mi salvo le informazioni dei clienti
             var informazioni_clienti = dati[i];
             // salvo in una variabile il capitale dei clienti
-            var capitale_clienti = informazioni_clienti.amount;
+            var capitale_clienti = parseInt(informazioni_clienti.amount);
             // salvo la data di ogni cliente
             var  date = informazioni_clienti.date;
             moment.locale('it');
@@ -50,7 +86,7 @@ $(document).ready(function(){
             // mi salvo le informazioni dei clienti
             var informazioni_clienti = dati[i];
             // salvo in una variabile il capitale dei clienti
-            var capitale_clienti = informazioni_clienti.amount;
+            var capitale_clienti = parseInt(informazioni_clienti.amount);
             // salvo nomi dei clienti per la parte 2 della milestone 1
             var nomi_clienti = informazioni_clienti.salesman;
             if (vendite_venditori.hasOwnProperty(nomi_clienti)) {
@@ -87,9 +123,11 @@ $(document).ready(function(){
         // questi corrispondono al totale del capitale di ogni mese
         var capitale = Object.values(dati_vendite_mensili);
         // console.log(capitale);
+        $('.chart-container-vendite').empty();
+        $('.chart-container-vendite').append('<canvas id="grafico_vendite"></canvas>');
         var ctx = $('#grafico_vendite')[0].getContext('2d');
 
-        var myChart = new Chart(ctx, {
+        grafici.graficoVendite = new Chart(ctx, {
            type: 'line',
            data: {
                labels: mesi,
@@ -115,7 +153,7 @@ $(document).ready(function(){
                } // fine title
             } // fine options
        });// fine my chart
-   } //** function disegna grafico vendite **//
+    } //** function disegna grafico vendite **//
 
     function disegna_grafico_vendite_venditori(dati_vendite_venditori){
        var nomi_venditori = Object.keys(dati_vendite_venditori);
@@ -123,6 +161,8 @@ $(document).ready(function(){
         // questi corrispondono al totale del capitale di ogni mese
         var dati_venditori = Object.values(dati_vendite_venditori);
 
+        $('.chart-container-mesi').empty();
+        $('.chart-container-mesi').append('<canvas id="grafico_venditori"></canvas>');
         var ctx = $('#grafico_venditori')[0].getContext('2d');
 
         var myChart = new Chart(ctx, {
@@ -156,22 +196,4 @@ $(document).ready(function(){
              } // fine options
         }); // fine chart
     };//** fine funzione disegna vendite venditori **//
-    ///****** MILESTONE 2 ******///
-    $('.btn').on( "click" , function(){
-        $.ajax({
-            'url': url_ajax ,
-            'method': 'POST',
-            'data':{
-                'salesman':nomi_clienti,
-                'amount': capitale_clienti,
-                'date': date
-            }
-            'success': function(data){
-                console.log(data);
-            } // fine success
-        });// fine ajax
-
-
-
-    }));//** fine on click
 });// fine document ready
