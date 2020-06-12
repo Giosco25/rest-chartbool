@@ -127,7 +127,7 @@ $(document).ready(function(){
         $('.chart-container-vendite').append('<canvas id="grafico_vendite"></canvas>');
         var ctx = $('#grafico_vendite')[0].getContext('2d');
 
-        grafici.graficoVendite = new Chart(ctx, {
+        var myChart = new Chart(ctx, {
            type: 'line',
            data: {
                labels: mesi,
@@ -160,6 +160,7 @@ $(document).ready(function(){
         // estraggo il capitale dell'oggetto vendite_mesi
         // questi corrispondono al totale del capitale di ogni mese
         var dati_venditori = Object.values(dati_vendite_venditori);
+        select_venditori(nomi_venditori);
 
         $('.chart-container-mesi').empty();
         $('.chart-container-mesi').append('<canvas id="grafico_venditori"></canvas>');
@@ -196,4 +197,21 @@ $(document).ready(function(){
              } // fine options
         }); // fine chart
     };//** fine funzione disegna vendite venditori **//
+
+    //**** TEMPLATE HANDLEBARS *****//
+    function select_venditori(venditori) {
+        var option_venditori = $('#venditore-template').html();
+
+        var template = Handlebars.compile(option_venditori);
+        // svuoto la select e inserisco la prima option con value=""
+        $('.venditori').empty();
+        $('.venditori').append(template({'nome': '-- scegli venditore --'}));
+        // per ogni venditore, genero una option
+        for (var i = 0; i < venditori.length; i++) {
+            $('.venditori').append(template({
+                'nome': venditori[i],
+                'valore': venditori[i]
+            }));// $
+        } // fine ciclo for
+    } // fune funzione seleziona venditori
 });// fine document ready
